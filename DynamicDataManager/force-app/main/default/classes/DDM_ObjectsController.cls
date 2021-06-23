@@ -82,6 +82,15 @@ public inherited sharing class DDM_ObjectsController {
         return listFields;
     }
     
+    public SObject getStandardObjectFor(String objectName){
+        try{
+            return Schema.getGlobalDescribe().get(objectName).newSObject();
+        }
+        catch(NullPointerException npe){
+            throw new InvalidObjectException('ERROR: "'+objectName+'" is not a valid Object Name. Please consult with Administrator!');
+        }
+    }
+    
     private static Boolean checkForPresenceIgnoringCase(List<String> fields, String value){
         Boolean flag = false;
         for(String field : fields){
