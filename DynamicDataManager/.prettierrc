@@ -1,5 +1,6 @@
 {
   "trailingComma": "none",
+  "tabs": "4",
   "overrides": [
     {
       "files": "**/lwc/**/*.html",
