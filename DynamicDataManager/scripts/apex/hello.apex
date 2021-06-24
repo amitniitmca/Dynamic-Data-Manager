@@ -49,12 +49,12 @@
 //                                             .execute();
 // System.debug(accounts);
 
-List<Account> accounts = (List<Account>)new DdmObjects('Account')
-                                        .fields(new List<String>{'AccountNumber', 'Rating'})
-                                        .values(new List<Object>{'123456', 'Hot'})
-                                        .put()
-                                        .execute();
-System.debug(accounts);
+// List<Account> accounts = (List<Account>)new DdmObjects('Account')
+//                                         .fields(new List<String>{'AccountNumber', 'Rating'})
+//                                         .values(new List<Object>{'123456', 'Hot'})
+//                                         .put()
+//                                         .execute();
+// System.debug(accounts);
 
 // List<Account> accounts = (List<Account>)new DdmObjects('Account')
 //                                             .deleteWhen('Id', '0010w00000g8HDLAA2')
