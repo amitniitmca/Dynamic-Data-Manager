@@ -1,0 +1,44 @@
+<!--
+  @description       : 
+  @author            : Amit Kumar
+  @group             : 
+  @last modified on  : 06-25-2021
+  @last modified by  : Amit Kumar
+  Modifications Log 
+  Ver   Date         Author       Modification
+  1.0   06-24-2021   Amit Kumar   Initial Version
+-->
+<template>
+    <lightning-card title="Data Selector" icon-name="standard:category">
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item size="12">
+                <lightning-layout>
+                    <lightning-layout-item size="4" class="slds-var-p-around_x-large">
+                        <c-objects-lookup object-name-records={objectRecords} onselected={handleObjectSelected}>
+                        </c-objects-lookup>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="4" class="slds-var-p-left_large slds-var-p-right_large">
+                        <lightning-dual-listbox name="objectFields" label="Select Fields" source-label="Available"
+                            selected-label="Selected"
+                            field-level-help="Select your preferred fields (Required fields are mandatory)"
+                            options={allFields} onchange={handleFieldsChange} value={requiredFields} required-options={requiredFields}>
+                        </lightning-dual-listbox>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="4" class="slds-var-p-around_x-large">
+                        <div class="slds-align_absolute-center">
+                            <lightning-button variant="brand" label="Show Records" title="titleName"
+                                class="slds-var-p-right_small"></lightning-button>
+                            <lightning-button variant="neutral" label="Reset Records" title="titleName"
+                                class="slds-var-p-right_small"></lightning-button>
+                            <lightning-button variant="neutral" label="Reset Filters" title="titleName">
+                            </lightning-button>
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+            <lightning-layout-item size="12">
+
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

@@ -6,5 +6,8 @@
   },
   "SFDoc.username": "Amit Kumar",
   "SFDoc.IncludParameterTypeInMethodHeader": true,
-  "prettier.tabWidth": 4
+  "prettier.tabWidth": 4,
+  "css.styleSheets": [
+  
+  ]
 }

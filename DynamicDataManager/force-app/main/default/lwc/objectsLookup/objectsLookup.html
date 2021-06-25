@@ -1,0 +1,29 @@
+<!--
+  @description       : 
+  @author            : Amit Kumar
+  @group             : 
+  @last modified on  : 06-25-2021
+  @last modified by  : Amit Kumar
+  Modifications Log 
+  Ver   Date         Author       Modification
+  1.0   06-25-2021   Amit Kumar   Initial Version
+-->
+<template>
+    <lightning-layout multiple-rows>
+        <lightning-layout-item size="12">
+            <lightning-input class={inputClass} type="search" id="input" value={searchObject} variant="standard"
+                autocomplete="off" name="searchObjectBox" label="Search when user hits the 'enter' key" onclick={handleSelectClick} onblur={onSelectBlur}
+                onchange={onSelectChange} onkeyup={handlekeyUp}></lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item size="12">
+            <template for:each={records} for:item="record">
+                <p key={record.index} data-id={record.index} role="presentation" data-name={record.value}
+                    onclick={onSearchTermSelect}>
+                    <span class="slds-lookup__item-action slds-lookup__item-action--label" role="option">
+                        <span class="slds-truncate">{record.value}</span>
+                    </span>
+                </p>
+            </template>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>
