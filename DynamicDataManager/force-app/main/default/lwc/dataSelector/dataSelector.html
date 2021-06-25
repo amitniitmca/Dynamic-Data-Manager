@@ -27,17 +27,17 @@
                     <lightning-layout-item size="4" class="slds-var-p-around_x-large">
                         <div class="slds-align_absolute-center">
                             <lightning-button variant="brand" label="Show Records" title="titleName"
-                                class="slds-var-p-right_small"></lightning-button>
+                                class="slds-var-p-right_small"
+                                onclick={handleShowRecordsClick}></lightning-button>
                             <lightning-button variant="neutral" label="Reset Records" title="titleName"
-                                class="slds-var-p-right_small"></lightning-button>
-                            <lightning-button variant="neutral" label="Reset Filters" title="titleName">
+                                class="slds-var-p-right_small"
+                                onclick={handleResetRecordsClick}></lightning-button>
+                            <lightning-button variant="neutral" label="Reset Filters" title="titleName"
+                            onclick={handleResetFiltersClick}>
                             </lightning-button>
                         </div>
                     </lightning-layout-item>
                 </lightning-layout>
-            </lightning-layout-item>
-            <lightning-layout-item size="12">
-
             </lightning-layout-item>
         </lightning-layout>
     </lightning-card>

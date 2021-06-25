@@ -13,11 +13,11 @@
 //                                             .execute();
 // System.debug(accounts);
 
-// List<Account> accounts = (List<Account>)new DdmObjects('Account')
-//                                             .fields(new List<String>{'Name', 'IsDeleted' ,'Rating'})
-//                                             .get()
-//                                             .execute();
-// System.debug(accounts);
+List<Account> accounts = (List<Account>)new DdmObjects('Account')
+                                            .fields(new List<String>{'Name', 'IsDeleted' ,'Rating'})
+                                            .get()
+                                            .execute();
+System.debug(accounts);
 
 // List<Account> accounts = (List<Account>)new DdmObjects('Account')
 //                                             .get()
@@ -60,3 +60,5 @@
 //                                             .deleteWhen('Id', '0010w00000g8HDLAA2')
 //                                             .execute();
 // System.debug('SAMPLE ===> ' + accounts);
+
+System.debug(new DDM_ObjectsController().getFieldTypeOf('Account','BillingAddress'));

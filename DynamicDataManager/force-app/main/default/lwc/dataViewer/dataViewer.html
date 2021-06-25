@@ -1,0 +1,34 @@
+<!--
+  @description       : 
+  @author            : Amit Kumar
+  @group             : 
+  @last modified on  : 06-25-2021
+  @last modified by  : Amit Kumar
+  Modifications Log 
+  Ver   Date         Author       Modification
+  1.0   06-25-2021   Amit Kumar   Initial Version
+-->
+<template>
+    <lightning-card title="Data Viewer" icon-name="standard:work_plan">
+        <lightning-layout multiple-rows="true" class="slds-var-p-around_small">
+            <template if:true={objectName}>
+                <template if:true={objectFields}>
+                    <lightning-layout-item size="12" class="slds-var-p-around_small">
+                        <c-data-filter></c-data-filter>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12">
+                        <c-object-data-table object-name={objectName} field-list={objectFields}></c-object-data-table>
+                    </lightning-layout-item>
+                </template>
+            </template>
+            <template if:false={objectName}>
+                <lightning-layout-item size="12" class="slds-align_absolute-center ">
+                    <img class="slds-illustration__svg" src="/_slds/images/illustrations/empty-states/desertSmall.svg">
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small" class="slds-align_absolute-center">
+                    <p>Nothing here yet!</p>
+                </lightning-layout-item>
+            </template>
+        </lightning-layout>
+    </lightning-card>
+</template>

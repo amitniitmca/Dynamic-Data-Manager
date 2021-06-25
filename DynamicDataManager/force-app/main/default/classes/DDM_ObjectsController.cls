@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Amit Kumar
  * @group             :
- * @last modified on  : 06-23-2021
+ * @last modified on  : 06-25-2021
  * @last modified by  : Amit Kumar
  * Modifications Log
  * Ver   Date         Author       Modification
@@ -37,6 +37,17 @@ public inherited sharing class DDM_ObjectsController{
 			listFields.add(String.valueOf(fsMap.get(key)));
 		}
 		return listFields;
+	}
+	
+	public String getFieldTypeOf(String objectName, String fieldName){
+		String[] types = new String[]{objectName};
+		Schema.DescribeSobjectResult[] results;
+		try{
+			results = Schema.describeSObjects(types);
+		} catch (System.InvalidParameterValueException e){
+			throw new InvalidObjectException('ERROR: "' + objectName + '" is not a valid Object Name. Please consult with Administrator!');
+		}
+		return String.valueOf(results[0].fields.getMap().get(fieldName).getDescribe().getType());
 	}
 
 	public List<String> getRequiredFieldsOf(String objectName){
@@ -98,4 +109,6 @@ public inherited sharing class DDM_ObjectsController{
 		}
 		return flag;
 	}
+	
+	
 }

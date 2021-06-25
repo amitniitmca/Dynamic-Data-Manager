@@ -1,0 +1,19 @@
+<!--
+  @description       : 
+  @author            : Amit Kumar
+  @group             : 
+  @last modified on  : 06-25-2021
+  @last modified by  : Amit Kumar
+  Modifications Log 
+  Ver   Date         Author       Modification
+  1.0   06-25-2021   Amit Kumar   Initial Version
+-->
+<template>
+  <template if:true={isDataLoading}>
+    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+  </template>
+  <div class="slds-scrollable" style="height:250px">
+    <lightning-datatable key-field="id" data={dataList} columns={columnsList} column-widths-mode="auto">
+    </lightning-datatable>
+  </div>
+</template>

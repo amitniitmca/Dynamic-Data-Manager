@@ -9,7 +9,7 @@
  * 1.0   06-25-2021   Amit Kumar   Initial Version
 **/
 import { LightningElement, wire } from 'lwc';
-import getAllStandardObjects from '@salesforce/apex/DataManagerCtrl.getAllStandardObjects';
+import getAllStandardObjects from '@salesforce/apex/DataSelectorCtrl.getAllStandardObjects';
 
 export default class ObjectsLookup extends LightningElement {
     objectNameRecords = [];

@@ -2,13 +2,13 @@
  * @description       : 
  * @author            : Amit Kumar
  * @group             : 
- * @last modified on  : 06-24-2021
+ * @last modified on  : 06-25-2021
  * @last modified by  : Amit Kumar
  * Modifications Log 
  * Ver   Date         Author       Modification
  * 1.0   06-24-2021   Amit Kumar   Initial Version
 **/
-public inherited sharing class DataManagerCtrl {
+public inherited sharing class DataSelectorCtrl {
     @AuraEnabled(cacheable=true)
     public static List<String> getAllStandardObjects(){
         try {
