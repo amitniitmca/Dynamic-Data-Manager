@@ -2,7 +2,7 @@
   @description       : 
   @author            : Amit Kumar
   @group             : 
-  @last modified on  : 06-25-2021
+  @last modified on  : 06-26-2021
   @last modified by  : Amit Kumar
   Modifications Log 
   Ver   Date         Author       Modification
@@ -14,10 +14,18 @@
             <template if:true={objectName}>
                 <template if:true={objectFields}>
                     <lightning-layout-item size="12" class="slds-var-p-around_small">
-                        <c-data-filter></c-data-filter>
+                        <c-data-filter  create-record-disabled={crdStatus}
+                                        edit-record-disabled={erdStatus}
+                                        delete-record-disabled={drdStatus}
+                                        reset-select-disabled={rsdStatus}
+                                        fields={objectFields}>
+                        </c-data-filter>
                     </lightning-layout-item>
                     <lightning-layout-item size="12">
-                        <c-object-data-table object-name={objectName} field-list={objectFields}></c-object-data-table>
+                        <c-object-data-table object-name={objectName} 
+                                            field-list={objectFields}
+                                            onselectionchanged={handleSelectionChanged}>
+                        </c-object-data-table>
                     </lightning-layout-item>
                 </template>
             </template>

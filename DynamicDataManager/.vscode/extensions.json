@@ -5,6 +5,8 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "financialforce.lana",
-    "ecmel.vscode-html-css"
+    "ecmel.vscode-html-css",
+    "kanko.aura-helper",
+    "zachflower.uncrustify"
   ]
 }

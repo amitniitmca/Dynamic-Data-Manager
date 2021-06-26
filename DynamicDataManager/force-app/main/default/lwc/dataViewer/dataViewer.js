@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Amit Kumar
  * @group             : 
- * @last modified on  : 06-25-2021
+ * @last modified on  : 06-26-2021
  * @last modified by  : Amit Kumar
  * Modifications Log 
  * Ver   Date         Author       Modification
@@ -18,6 +18,12 @@ export default class DataViewer extends LightningElement {
     
     objectName = undefined;
     objectFields = undefined;
+    
+    crdStatus = false;
+    erdStatus = true;
+    drdStatus = true;
+    rsdStatus = true;
+    numberOfSelectedRows = 0;
     
     connectedCallback(){
         this.subscribeMC();
@@ -36,10 +42,14 @@ export default class DataViewer extends LightningElement {
     handleMessage(message) {
         this.objectName = message.objectName;
         this.objectFields = message.listOfFields;
-        console.log(this.objectFields);
+        // console.log(this.objectFields);
         this.template.querySelector('c-object-data-table').objectName = this.objectName;
         this.template.querySelector('c-object-data-table').fieldList = this.objectFields;
         this.template.querySelector('c-object-data-table').getFieldTypes();
+        console.log(this.template.querySelector('c-data-filter').fields);
+        this.template.querySelector('c-data-filter').fields = this.objectFields;
+        console.log(this.template.querySelector('c-data-filter').fields);
+        this.template.querySelector('c-data-filter').loadTheFields();
     }
     
     unsubscribeMC() {
@@ -49,5 +59,27 @@ export default class DataViewer extends LightningElement {
 
     disconnectedCallback() {
         this.unsubscribeMC();
+    }
+    
+    handleSelectionChanged(event){
+        const selectedRows = event.detail;
+        if(selectedRows === 0){
+            this.crdStatus = false;
+            this.erdStatus = true;
+            this.drdStatus = true;
+            this.rsdStatus = true;
+        }
+        else if(selectedRows === 1){
+            this.crdStatus = true;
+            this.erdStatus = false;
+            this.drdStatus = false;
+            this.rsdStatus = false;
+        }
+        else{
+            this.crdStatus = true;
+            this.erdStatus = true;
+            this.drdStatus = false;
+            this.rsdStatus = false;
+        }
     }
 }

@@ -9,5 +9,6 @@
   "prettier.tabWidth": 4,
   "css.styleSheets": [
   
-  ]
+  ],
+  "aurahelper.metadata.refreshSObjectDefinitionsOnStart": true
 }

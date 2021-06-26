@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Amit Kumar
  * @group             : 
- * @last modified on  : 06-25-2021
+ * @last modified on  : 06-26-2021
  * @last modified by  : Amit Kumar
  * Modifications Log 
  * Ver   Date         Author       Modification
@@ -52,5 +52,11 @@ export default class ObjectDataTable extends LightningElement {
             .catch(error => {
                 console.log(JSON.stringify(error));
             });
+    }
+    
+    handleRowSelection(event){
+        const rows = event.target.getSelectedRows();
+        const myevent = new CustomEvent('selectionchanged', {detail: rows.length});
+        this.dispatchEvent(myevent);
     }
 }

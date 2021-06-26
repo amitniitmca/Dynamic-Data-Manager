@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Amit Kumar
  * @group             : 
- * @last modified on  : 06-25-2021
+ * @last modified on  : 06-26-2021
  * @last modified by  : Amit Kumar
  * Modifications Log 
  * Ver   Date         Author       Modification
@@ -20,7 +20,7 @@ public inherited sharing class DataSelectorCtrl {
     
     @AuraEnabled(cacheable=true)
     public static List<String> getAllRequiredFieldsOfObject(String objectName){
-        try {
+        try {            
             return new DDM_ObjectsController().getRequiredFieldsOf(objectName);
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());

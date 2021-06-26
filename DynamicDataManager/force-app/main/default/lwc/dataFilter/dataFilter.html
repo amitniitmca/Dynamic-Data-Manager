@@ -2,7 +2,7 @@
   @description       : 
   @author            : Amit Kumar
   @group             : 
-  @last modified on  : 06-25-2021
+  @last modified on  : 06-26-2021
   @last modified by  : Amit Kumar
   Modifications Log 
   Ver   Date         Author       Modification
@@ -11,26 +11,51 @@
 <template>
     <lightning-layout class="slds-form">
         <lightning-layout-item size="4" class="slds-var-p-around_medium slds-align_absolute-center">
-            <lightning-button variant="brand" label="Create Record" title="Create Record" onclick={handleCreateClick}
-                class="slds-var-p-right_medium">
+            <lightning-button   variant="brand" 
+                                label="Create Record" 
+                                title="Create Record" 
+                                onclick={handleCreateClick}
+                                class="slds-var-p-right_medium"
+                                disabled={createRecordDisabled}>
             </lightning-button>
-            <lightning-button variant="brand-outline" label="Edit Record" title="Edit Record" onclick={handleEditClick}
-                class="slds-var-p-right_medium">
+            <lightning-button   variant="brand-outline" 
+                                label="Edit Record" 
+                                title="Edit Record" 
+                                onclick={handleEditClick}
+                                class="slds-var-p-right_medium"
+                                disabled={editRecordDisabled}>
             </lightning-button>
-            <lightning-button variant="destructive" label="Delete Record" title="Delete Record"
-                onclick={handleDeleteClick} class="slds-var-p-right_medium">
+            <lightning-button   variant="destructive" 
+                                label="Delete Record" 
+                                title="Delete Record"
+                                onclick={handleDeleteClick} 
+                                class="slds-var-p-right_medium"
+                                disabled={deleteRecordDisabled}>
             </lightning-button>
-            <lightning-button variant="neutral" label="Reset Select" title="Reset Select"
-                onclick={handleResetSelectClick}>
+            <lightning-button   variant="neutral" 
+                                label="Reset Select" 
+                                title="Reset Select"
+                                onclick={handleResetSelectClick}
+                                disabled={resetSelectDisabled}>
             </lightning-button>
         </lightning-layout-item>
         <lightning-layout-item size="2" class="slds-var-p-around_medium">
-            <lightning-combobox name="progress" label="Status" value={value} placeholder="Select Progress"
-                options={options} onchange={handleChange} variant="label-hidden"></lightning-combobox>
+            <lightning-combobox name="fields" 
+                                label="Fields" 
+                                value={fieldsValue} 
+                                options={fieldsOptions} 
+                                onchange={handleFieldsChange} 
+                                variant="label-hidden">
+            </lightning-combobox>
         </lightning-layout-item>
         <lightning-layout-item size="2" class="slds-var-p-around_medium">
-            <lightning-combobox name="progress" label="Status" value={value} placeholder="Select Progress"
-                options={options} onchange={handleChange} variant="label-hidden"></lightning-combobox>
+            <lightning-combobox name="operators" 
+                                label="Operators" 
+                                value={operatorsValue} 
+                                options={operatorsOptions} 
+                                onchange={handleOperatorsChange} 
+                                variant="label-hidden">
+            </lightning-combobox>
         </lightning-layout-item>
         <lightning-layout-item size="2" class="slds-var-p-left_medium slds-var-p-right_medium">
             <lightning-input type="text" variant="standard" name="name" placeholder="enter value..."></lightning-input>
