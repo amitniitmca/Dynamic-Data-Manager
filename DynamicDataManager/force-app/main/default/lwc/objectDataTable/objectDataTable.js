@@ -2,13 +2,13 @@
  * @description       : 
  * @author            : Amit Kumar
  * @group             : 
- * @last modified on  : 06-26-2021
+ * @last modified on  : 06-27-2021
  * @last modified by  : Amit Kumar
  * Modifications Log 
  * Ver   Date         Author       Modification
  * 1.0   06-25-2021   Amit Kumar   Initial Version
 **/
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api, wire } from 'lwc';
 import getFieldTypeForFields from '@salesforce/apex/ObjectDataTableCtrl.getFieldTypeForFields';
 import getValuesFrom from '@salesforce/apex/ObjectDataTableCtrl.getValuesFrom';
 
@@ -20,6 +20,8 @@ export default class ObjectDataTable extends LightningElement {
     dataList = [];
     isDataLoading = false;
     dataTableHeight = "height:250px";
+    wiredObjectResult;
+    
     connectedCallback() {
         if (this.objectName && this.fieldList)
         {
@@ -30,7 +32,9 @@ export default class ObjectDataTable extends LightningElement {
     @api getFieldTypes() {
         this.isDataLoading = true;
         this.listOfFields = this.fieldList.split(",");
-        console.log(this.objectName+'::'+this.fieldList);
+        if(!this.listOfFields.includes('Id')){
+            this.listOfFields.unshift('Id');
+        }
         getFieldTypeForFields({ objectName: this.objectName, fields: this.listOfFields })
             .then(result => {
                 this.columnsList = [];
@@ -56,7 +60,15 @@ export default class ObjectDataTable extends LightningElement {
     
     handleRowSelection(event){
         const rows = event.target.getSelectedRows();
-        const myevent = new CustomEvent('selectionchanged', {detail: rows.length});
+        console.log(rows);
+        let rowIds = [];
+        for(const index in rows){
+            rowIds = [...rowIds, rows[index].Id];
+        }
+        const eventLoad = {length: rows.length, recordIds: rowIds};
+        const myevent = new CustomEvent('selectionchanged', {detail: eventLoad});
         this.dispatchEvent(myevent);
     }
+    
+    
 }

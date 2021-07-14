@@ -2,7 +2,7 @@
   @description       : 
   @author            : Amit Kumar
   @group             : 
-  @last modified on  : 06-26-2021
+  @last modified on  : 06-27-2021
   @last modified by  : Amit Kumar
   Modifications Log 
   Ver   Date         Author       Modification
@@ -18,13 +18,18 @@
                                         edit-record-disabled={erdStatus}
                                         delete-record-disabled={drdStatus}
                                         reset-select-disabled={rsdStatus}
-                                        fields={objectFields}>
+                                        selected-id={selectedRecordId}
+                                        selected-ids={selectedRecordIds}
+                                        fields={objectFields}
+                                        object-name={objectName}
+                                        oncreated={handleCreated}
+                                        onedited={handleEdited}>
                         </c-data-filter>
                     </lightning-layout-item>
                     <lightning-layout-item size="12">
                         <c-object-data-table object-name={objectName} 
-                                            field-list={objectFields}
-                                            onselectionchanged={handleSelectionChanged}>
+                                             field-list={objectFields}
+                                             onselectionchanged={handleSelectionChanged}>
                         </c-object-data-table>
                     </lightning-layout-item>
                 </template>

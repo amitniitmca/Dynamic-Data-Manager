@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Amit Kumar
  * @group             : 
- * @last modified on  : 06-26-2021
+ * @last modified on  : 06-27-2021
  * @last modified by  : Amit Kumar
  * Modifications Log 
  * Ver   Date         Author       Modification
@@ -24,7 +24,8 @@ export default class DataViewer extends LightningElement {
     drdStatus = true;
     rsdStatus = true;
     numberOfSelectedRows = 0;
-    
+    selectedRecordIds = [];
+    selectedRecordId;
     connectedCallback(){
         this.subscribeMC();
     }
@@ -42,13 +43,18 @@ export default class DataViewer extends LightningElement {
     handleMessage(message) {
         this.objectName = message.objectName;
         this.objectFields = message.listOfFields;
-        // console.log(this.objectFields);
+        this.callToDataTable();
+        this.callToDataFilter();
+    }
+    
+    callToDataTable(){
         this.template.querySelector('c-object-data-table').objectName = this.objectName;
         this.template.querySelector('c-object-data-table').fieldList = this.objectFields;
         this.template.querySelector('c-object-data-table').getFieldTypes();
-        console.log(this.template.querySelector('c-data-filter').fields);
+    }
+    
+    callToDataFilter(){
         this.template.querySelector('c-data-filter').fields = this.objectFields;
-        console.log(this.template.querySelector('c-data-filter').fields);
         this.template.querySelector('c-data-filter').loadTheFields();
     }
     
@@ -62,7 +68,10 @@ export default class DataViewer extends LightningElement {
     }
     
     handleSelectionChanged(event){
-        const selectedRows = event.detail;
+        const selectedRows = event.detail.length;
+        const recordIds = event.detail.recordIds;
+        this.selectedRecordIds = recordIds;
+        this.selectedRecordId = this.selectedRecordIds[0];
         if(selectedRows === 0){
             this.crdStatus = false;
             this.erdStatus = true;
@@ -81,5 +90,15 @@ export default class DataViewer extends LightningElement {
             this.drdStatus = false;
             this.rsdStatus = false;
         }
+    }
+    
+    handleCreated(){
+        this.callToDataTable();
+        this.callToDataFilter();
+    }
+    
+    handleEdited(){
+        this.callToDataTable();
+        this.callToDataFilter();
     }
 }

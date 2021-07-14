@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Amit Kumar
  * @group             : 
- * @last modified on  : 06-25-2021
+ * @last modified on  : 06-27-2021
  * @last modified by  : Amit Kumar
  * Modifications Log 
  * Ver   Date         Author       Modification
@@ -10,6 +10,7 @@
 **/
 import { LightningElement, wire } from 'lwc';
 import NoHeader from '@salesforce/resourceUrl/NoHeader';
+import MultiLineToast from '@salesforce/resourceUrl/MultiLineToast';
 import { loadStyle, loadScript } from 'lightning/platformResourceLoader';
 import getAllRequiredFieldsOfObject from '@salesforce/apex/DataSelectorCtrl.getAllRequiredFieldsOfObject';
 import getAllFieldsOfObject from '@salesforce/apex/DataSelectorCtrl.getAllFieldsOfObject';
@@ -30,6 +31,7 @@ export default class DataSelector extends LightningElement {
 
     connectedCallback() {
         loadStyle(this, NoHeader);
+        loadStyle(this, MultiLineToast);
     }
 
     handleObjectSelected(event) {

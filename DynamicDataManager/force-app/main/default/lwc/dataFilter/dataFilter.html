@@ -2,7 +2,7 @@
   @description       : 
   @author            : Amit Kumar
   @group             : 
-  @last modified on  : 06-26-2021
+  @last modified on  : 06-27-2021
   @last modified by  : Amit Kumar
   Modifications Log 
   Ver   Date         Author       Modification
@@ -61,11 +61,48 @@
             <lightning-input type="text" variant="standard" name="name" placeholder="enter value..."></lightning-input>
         </lightning-layout-item>
         <lightning-layout-item size="2" class="slds-var-p-around_medium slds-align_absolute-center ">
-            <lightning-button variant="brand-outline" label="Show" title="Show" onclick={handleShowClick}
-                class="slds-var-p-right_medium">
+            <lightning-button variant="brand-outline" 
+                            label="Show" 
+                            title="Show" 
+                            onclick={handleShowClick}
+                            class="slds-var-p-right_medium">
             </lightning-button>
-            <lightning-button variant="neutral" label="Reset" title="Reset" onclick={handleResetClick}>
+            <lightning-button variant="neutral" 
+                            label="Reset" 
+                            title="Reset" 
+                            onclick={handleResetClick}>
             </lightning-button>
         </lightning-layout-item>
     </lightning-layout>
+    <div if:true={isCreating}>
+        <lightning-card>
+            <c-create-new-record-modal is-visible={isCreating}
+                                       object-api-name={objectName}
+                                       object-fields={fields}
+                                       oncreate={handleRecordCreated}
+                                       onclose={handleCancelClicked}>
+            </c-create-new-record-modal>
+        </lightning-card>
+    </div>
+    <div if:true={isEditing}>
+        <lightning-card>
+            <c-edit-record-modal is-visible={isEditing}
+                                 object-api-name={objectName}
+                                 object-fields={fields}
+                                 object-record-id={selectedId}
+                                 onedited={handleRecordEdited}
+                                 onclose={handleCloseClicked}>
+            </c-edit-record-modal>
+        </lightning-card>
+    </div>
+    <div if:true={isDeleting}>
+        <lightning-card>
+            <c-delete-confirm-modal is-deleting={isDeleting}
+                                message={confirmationMessage}
+                                object-name={objectName}
+                                onyes={handleYes}
+                                onno={handleNo}>
+            </c-delete-confirm-modal>
+        </lightning-card>
+    </div>
 </template>

@@ -6,7 +6,6 @@
     "esbenp.prettier-vscode",
     "financialforce.lana",
     "ecmel.vscode-html-css",
-    "kanko.aura-helper",
-    "zachflower.uncrustify"
+    "kanko.aura-helper"
   ]
 }
