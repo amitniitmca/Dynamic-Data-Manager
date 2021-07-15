@@ -2,7 +2,7 @@
  * @description       :
  * @author            : Amit Kumar
  * @group             :
- * @last modified on  : 06-24-2021
+ * @last modified on  : 07-15-2021
  * @last modified by  : Amit Kumar
  * Modifications Log
  * Ver   Date         Author       Modification
@@ -16,9 +16,10 @@ public inherited sharing class DdmObjects{
 		SELECT_QUERY, 
 		INSERT_QUERY, 
 		UPDATE_QUERY, 
-		DELETE_QUERY
+		DELETE_QUERY,
+		DELETE_QUERY_ALL
 	}
-
+	List<SObject> listOfObjects = null;
 	private String objectName = null;
 	private SObject standardObject = null;
 	private List<SObject> standardObjects = null;
@@ -26,7 +27,7 @@ public inherited sharing class DdmObjects{
 	private List<Object> objectValues = null;
 	private String getQuery = null;
 	private QueryType type = null;
-	public DdmObjects( String objectName){
+	public DdmObjects(String objectName){
 		this.objectName = objectName;
 	}
 
@@ -55,38 +56,40 @@ public inherited sharing class DdmObjects{
 		return this;
 	}
 
-	public DdmObjects isGreaterThan(Object value){
+	public DdmObjects isGreaterThan(Object val){
 		if (this.getQuery == null){
 			throw new InvalidQueryTypeException('ERROR: Please call get and when method before calling isGreaterThan!');
-		} else if (value instanceOf Integer || value instanceOf Double || value instanceOf Date || value instanceOf Datetime){
-			this.getQuery += ' > ' + value;
+		} else {
+			this.getQuery += ' > '+val;
 		}
 		return this;
 	}
 
-	public DdmObjects isGreaterThanEqual(Object value){
+	public DdmObjects isGreaterThanEqual(Object val){
 		if (this.getQuery == null){
 			throw new InvalidQueryTypeException('ERROR: Please call get and when method before calling isGreaterThanEqual!');
-		} else if (value instanceOf Integer || value instanceOf Double || value instanceOf Date || value instanceOf Datetime){
-			this.getQuery += ' >= ' + value;
+		} else {
+			this.getQuery += ' >= '+val;
 		}
 		return this;
 	}
 
-	public DdmObjects isLessThan(Object value){
+	public DdmObjects isLessThan(Object val){
 		if (this.getQuery == null){
 			throw new InvalidQueryTypeException('ERROR: Please call get and when method before calling isLessThan!');
-		} else if (value instanceOf Integer || value instanceOf Double || value instanceOf Date || value instanceOf Datetime){
-			this.getQuery += ' < ' + value;
+		} else {
+			this.getQuery += ' < '+val;
+			System.debug('Inside else if');
 		}
+		System.debug('DDM => '+this.getQuery);
 		return this;
 	}
 
-	public DdmObjects isLessThanEqual(Object value){
+	public DdmObjects isLessThanEqual(Object val){
 		if (this.getQuery == null){
 			throw new InvalidQueryTypeException('ERROR: Please call get and when method before calling isLessThanEqual!');
-		} else if (value instanceOf Integer || value instanceOf Double || value instanceOf Date || value instanceOf Datetime){
-			this.getQuery += ' <= ' + value;
+		} else {
+			this.getQuery += ' <= '+val;
 		}
 		return this;
 	}
@@ -238,7 +241,27 @@ public inherited sharing class DdmObjects{
 		this.type = QueryType.DELETE_QUERY;
 		return this;
 	}
-
+	
+	public DdmObjects deleteAll(List<String> fields, List<Object> values){
+		if(fields.size() == 0 || values.size() == 0){
+			throw new InvalidQueryTypeException('ERROR: Please provide key fields and values for deletion!');
+		}
+		else if(fields.size() !=  values.size()){
+			throw new InvalidQueryTypeException('ERROR: Please provide values for all the specified fields!');
+		}
+		else{
+			this.listOfObjects = new  List<SObject>();
+			for(Integer index = 0; index < fields.size(); index++){
+				String fname = fields.get(index);
+				Object val = values.get(index);
+				List<SObject> objs = new DdmObjects(this.objectName).get().when(fname, val).execute();
+				this.listOfObjects.addAll(objs);
+			}
+			this.type = QueryType.DELETE_QUERY_ALL;
+			return this;
+		}
+	}
+	
 	public List<SObject> execute(){
 		if (this.type == null){
 			throw new InvalidQueryTypeException('ERROR: Please choose a query with get, insert, update or delete methods!');
@@ -261,9 +284,13 @@ public inherited sharing class DdmObjects{
 			}
 			UPSERT this.standardObjects;
 			return this.standardObjects;
-		} else{
+		} else if(this.type == QueryType.DELETE_QUERY){
 			DELETE this.standardObjects;
-			return new List<SObject>();
+			return this.standardObjects;
+		} 
+		else{
+			DELETE this.listOfObjects;
+			return this.listOfObjects;
 		}
 	}
 

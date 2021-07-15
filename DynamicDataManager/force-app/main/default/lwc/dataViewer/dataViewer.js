@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Amit Kumar
  * @group             : 
- * @last modified on  : 06-27-2021
+ * @last modified on  : 07-15-2021
  * @last modified by  : Amit Kumar
  * Modifications Log 
  * Ver   Date         Author       Modification
@@ -26,6 +26,8 @@ export default class DataViewer extends LightningElement {
     numberOfSelectedRows = 0;
     selectedRecordIds = [];
     selectedRecordId;
+    @track filteredData=[];
+    
     connectedCallback(){
         this.subscribeMC();
     }
@@ -100,5 +102,17 @@ export default class DataViewer extends LightningElement {
     handleEdited(){
         this.callToDataTable();
         this.callToDataFilter();
+    }
+    
+    handleDeleted(){
+        this.callToDataTable();
+        this.callToDataFilter();
+    }
+    
+    handleFilter(event){
+        // console.log('DATA VIEWER =>'+event.detail);
+        this.filteredData = event.detail;
+        this.template.querySelector('c-object-data-table').filteredData = event.detail;
+        this.template.querySelector('c-object-data-table').filterTheData();
     }
 }

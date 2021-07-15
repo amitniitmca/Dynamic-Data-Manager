@@ -62,3 +62,7 @@ System.debug(accounts);
 // System.debug('SAMPLE ===> ' + accounts);
 
 System.debug(new DDM_ObjectsController().getFieldTypeOf('Account','BillingAddress'));
+
+System.debug(new DdmObjects('Account').deleteAll(new List<String>{'Id', 'Id'}, new List<Object>{'0010w00000g8GpjAAE', '0010w00000g8GoDAAU'}).execute());
+
+System.debug('HELLO ==> '+DataFilterCtrl.deleteTheseRecords('Account', new List<Id>{'0010w00000g8Gq3AAE', '0010w00000g8HDBAA2'}));

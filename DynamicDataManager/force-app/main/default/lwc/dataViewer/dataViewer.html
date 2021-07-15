@@ -2,7 +2,7 @@
   @description       : 
   @author            : Amit Kumar
   @group             : 
-  @last modified on  : 06-27-2021
+  @last modified on  : 07-15-2021
   @last modified by  : Amit Kumar
   Modifications Log 
   Ver   Date         Author       Modification
@@ -23,13 +23,16 @@
                                         fields={objectFields}
                                         object-name={objectName}
                                         oncreated={handleCreated}
-                                        onedited={handleEdited}>
+                                        onedited={handleEdited}
+                                        ondeleted={handleDeleted}
+                                        onfilter={handleFilter}>
                         </c-data-filter>
                     </lightning-layout-item>
                     <lightning-layout-item size="12">
                         <c-object-data-table object-name={objectName} 
                                              field-list={objectFields}
-                                             onselectionchanged={handleSelectionChanged}>
+                                             onselectionchanged={handleSelectionChanged}
+                                             filtered-data={filteredData}>
                         </c-object-data-table>
                     </lightning-layout-item>
                 </template>

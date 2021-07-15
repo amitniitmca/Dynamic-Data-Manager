@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Amit Kumar
  * @group             : 
- * @last modified on  : 06-27-2021
+ * @last modified on  : 07-15-2021
  * @last modified by  : Amit Kumar
  * Modifications Log 
  * Ver   Date         Author       Modification
@@ -15,6 +15,9 @@ import getValuesFrom from '@salesforce/apex/ObjectDataTableCtrl.getValuesFrom';
 export default class ObjectDataTable extends LightningElement {
     @api objectName;
     @api fieldList;
+    @api filteredData;
+    
+    oldData;
     listOfFields = [];
     columnsList = [];
     dataList = [];
@@ -45,7 +48,7 @@ export default class ObjectDataTable extends LightningElement {
                 }
                 getValuesFrom({ objectName: this.objectName, fields: this.listOfFields })
                     .then(res => {
-                        console.log('DATA ===> ' + res);
+                        console.log('DATA ===> ' + JSON.stringify(res));
                         this.dataList = res;
                         this.isDataLoading = false;
                     })
@@ -70,5 +73,10 @@ export default class ObjectDataTable extends LightningElement {
         this.dispatchEvent(myevent);
     }
     
+    @api filterTheData(){
+        this.oldData = this.dataList;
+        this.dataList = this.filteredData;
+        console.log(JSON.stringify(this.dataList));    
+    }
     
 }

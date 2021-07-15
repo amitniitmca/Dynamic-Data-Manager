@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Amit Kumar
  * @group             : 
- * @last modified on  : 06-27-2021
+ * @last modified on  : 07-15-2021
  * @last modified by  : Amit Kumar
  * Modifications Log 
  * Ver   Date         Author       Modification
@@ -13,6 +13,7 @@ import MultiLineToast from '@salesforce/resourceUrl/MultiLineToast';
 import { loadStyle, loadScript } from 'lightning/platformResourceLoader';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import deleteTheseRecords from '@salesforce/apex/DataFilterCtrl.deleteTheseRecords';
+import getValuesFromObjectWhere from '@salesforce/apex/DataFilterCtrl.getValuesFromObjectWhere';
 export default class DataFilter extends LightningElement {
     @api createRecordDisabled = false;
     @api editRecordDisabled = false;
@@ -39,6 +40,7 @@ export default class DataFilter extends LightningElement {
     operatorsValue = '---Select---';
     fieldsOptions = [];
     fieldsValue = '---Select---';
+    valueToCompare = undefined;
 
     connectedCallback() {
         loadStyle(this, MultiLineToast);
@@ -58,19 +60,38 @@ export default class DataFilter extends LightningElement {
         this.fieldsOptions.unshift({ label: '---Select Field---', value: '---Select---' });
         this.fieldsValue = '---Select---';
     }
-
+    
     handleFieldsChange(event) {
-
+        this.fieldsValue = event.target.value;
     }
-
+    
     handleOperatorsChange(event) {
-
+        this.operatorsValue = event.target.value;
     }
 
+    handleValueChange(event){
+        this.valueToCompare = event.target.value;
+    }
+    
+    handleShowClick(){
+        if(this.fieldsValue === '---Select---' || this.operatorsValue === '---Select---' || this.valueToCompare.length === 0 || this.valueToCompare === undefined){
+            this.showError('Please provide field, operator and value to see filtered data !');
+        }
+        else{
+            this.getValuesFromObject();    
+        }
+    }
+    
+    async getValuesFromObject(){
+        const result = await getValuesFromObjectWhere({objectName: this.objectName, fields: this.fields.split(","), field: this.fieldsValue, value: this.valueToCompare, operation: this.operatorsValue});
+        const myEvent = new CustomEvent("filter", {detail: result});
+        this.dispatchEvent(myEvent);
+    }
+    
     handleCreateClick() {
         this.isCreating = true;
     }
-
+        
     handleRecordCreated(event) {
         const recId = event.detail;
         this.showMessage(recId + ' created successfully');
@@ -89,8 +110,8 @@ export default class DataFilter extends LightningElement {
 
     handleRecordEdited(event) {
         const recId = event.detail;
-        this.showMessage(recId + ' updated successfully');
         this.isEditing = false;
+        this.showMessage(recId + ' updated successfully');
         const myevent = new CustomEvent('edited');
         this.dispatchEvent(myevent);
     }
@@ -134,17 +155,25 @@ export default class DataFilter extends LightningElement {
         this.isDeleting = false;
         deleteTheseRecords({ objectName: this.objectName, objectRecordIds: this.selectedIds })
         .then(result=>{
+            let message = "";
+            let s = "Following records deleted successfully - \n";
+            let e = "Following records can't be deleted - \n";
+            for (const rids of this.selectedIds)
+            {
+                message += rids + "\n";
+            }
             if (result === true)
             {
-                const message = "Following records deleted successfully - \n";
-                for (const rids of this.selectedIds)
-                {
-                    message += rids + "\n";
-                }
-                this.showMessage(message);
+                this.showMessage(s+message);
+                const myEvent = new CustomEvent("deleted");
+                this.dispatchEvent(myEvent);
+            }
+            else{
+                this.showError(e+message);
             }
         })
         .catch(error=>{
+            console.log(error); 
             console.log(JSON.stringify(error)); 
             this.showError('Unable to delete records ['+error+']. Please contact Administrator!');
         });
@@ -154,4 +183,6 @@ export default class DataFilter extends LightningElement {
     handleNo() {
         this.isDeleting = false;
     }
+    
+    
 }
