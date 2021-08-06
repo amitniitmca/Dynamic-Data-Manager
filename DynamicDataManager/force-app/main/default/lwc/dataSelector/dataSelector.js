@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Amit Kumar
  * @group             : 
- * @last modified on  : 06-27-2021
+ * @last modified on  : 07-26-2021
  * @last modified by  : Amit Kumar
  * Modifications Log 
  * Ver   Date         Author       Modification
@@ -32,6 +32,8 @@ export default class DataSelector extends LightningElement {
     connectedCallback() {
         loadStyle(this, NoHeader);
         loadStyle(this, MultiLineToast);
+        // this.template.addEventListener(sforce.console.ConsoleEvent.OPEN_TAB, this.onTabOpened);
+        // this.template.addEventListener(sforce.console.ConsoleEvent.CLOSE_TAB, this.onTabClosed);
     }
 
     handleObjectSelected(event) {
@@ -107,4 +109,5 @@ export default class DataSelector extends LightningElement {
         });
         this.dispatchEvent(evt);
     }
+
 }

@@ -13,11 +13,11 @@
 //                                             .execute();
 // System.debug(accounts);
 
-List<Account> accounts = (List<Account>)new DdmObjects('Account')
-                                            .fields(new List<String>{'Name', 'IsDeleted' ,'Rating'})
-                                            .get()
-                                            .execute();
-System.debug(accounts);
+// List<Account> accounts = (List<Account>)new DdmObjects('Account')
+//                                             .fields(new List<String>{'Name', 'IsDeleted' ,'Rating'})
+//                                             .get()
+//                                             .execute();
+// System.debug(accounts);
 
 // List<Account> accounts = (List<Account>)new DdmObjects('Account')
 //                                             .get()
@@ -36,8 +36,8 @@ System.debug(accounts);
 
 // List<Account> accounts = (List<Account>)new DdmObjects('Account')
 //                                             .fields(new List<String>{'Name', 'IsDeleted' ,'Rating'})
-//                                             .get()
-//                                             .whenAND(new List<String>{'Rating', 'AccountNumber'}, new List<Object>{'Hot', '123456'})
+//                                             .get() 
+//                                             .whenAND(new List<String>{'Rating = \'hot\'', 'AccountNumber= 12234'}, new List<Object>{'Hot', '123456'})
 //                                             .execute();
 // System.debug(accounts);
 // System.debug(accounts.size());
@@ -61,8 +61,8 @@ System.debug(accounts);
 //                                             .execute();
 // System.debug('SAMPLE ===> ' + accounts);
 
-System.debug(new DDM_ObjectsController().getFieldTypeOf('Account','BillingAddress'));
+// System.debug(new DDM_ObjectsController().getFieldTypeOf('Account','BillingAddress'));
 
-System.debug(new DdmObjects('Account').deleteAll(new List<String>{'Id', 'Id'}, new List<Object>{'0010w00000g8GpjAAE', '0010w00000g8GoDAAU'}).execute());
+// System.debug(new DdmObjects('Account').deleteAll(new List<String>{'Id', 'Id'}, new List<Object>{'0010w00000g8GpjAAE', '0010w00000g8GoDAAU'}).execute());
 
-System.debug('HELLO ==> '+DataFilterCtrl.deleteTheseRecords('Account', new List<Id>{'0010w00000g8Gq3AAE', '0010w00000g8HDBAA2'}));
+// System.debug('HELLO ==> '+DataFilterCtrl.deleteTheseRecords('Account', new List<Id>{'0010w00000g8Gq3AAE', '0010w00000g8HDBAA2'}));

@@ -1,8 +1,8 @@
 /**
- * @description       :
+ * @description       : This class is used to perform CRUD operation on Salesforce Object
  * @author            : Amit Kumar
  * @group             :
- * @last modified on  : 07-15-2021
+ * @last modified on  : 08-02-2021
  * @last modified by  : Amit Kumar
  * Modifications Log
  * Ver   Date         Author       Modification
@@ -27,6 +27,7 @@ public inherited sharing class DdmObjects{
 	private List<Object> objectValues = null;
 	private String getQuery = null;
 	private QueryType type = null;
+	
 	public DdmObjects(String objectName){
 		this.objectName = objectName;
 	}
@@ -172,12 +173,11 @@ public inherited sharing class DdmObjects{
 					whenString += ' ' + values[index]+' ';
 				}
 				if (index < max - 1){
-					whenString += 'AND ';
+					whenString += ' AND ';
 				}
 			}
 			this.getQuery += whenString;
 		}
-		System.debug('WHEN Q ===> ' + this.getQuery);
 		return this;
 	}
 
